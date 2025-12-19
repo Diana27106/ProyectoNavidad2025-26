@@ -1,0 +1,22 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "admin_flux",
+            "password": "neon_password_2025",
+            "name": "Admin Flux"
+        },
+        {
+            "id": 2,
+            "username": "tester01",
+            "password": "user1234",
+            "name": "Juan Prueba"
+        },
+        {
+            "id": 3,
+            "username": "cyber_punk",
+            "password": "cyberpassword",
+            "name": "Neo"
+        }
+    ]
+}
