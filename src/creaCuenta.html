@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLUX - Iniciar Sesión</title>
+    <title>FLUX - Crear Cuenta</title>
     <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
 
     <link rel="stylesheet" href="./css/form.css">
 </head>
 
 <body>
+    <!-- Animated Background -->
     <div class="video-bg-wrapper">
         <video autoplay muted loop playsinline class="video-bg-content">
             <source src="./assets/bg.mp4" type="video/mp4">
@@ -26,21 +27,31 @@
     </header>
 
     <main class="auth-container">
-        <section class="glass-card">
+        <section class="glass-card glass-card--wide">
             <header class="auth-card__header">
-                <h2 class="auth-card__title">Bienvenido de nuevo</h2>
-                <p class="auth-card__text">Accede a tu panel de control futurista</p>
+                <h2 class="auth-card__title">Únete a la Revolución</h2>
+                <p class="auth-card__text">Crea tu cuenta y accede al futuro del streaming</p>
             </header>
 
-            <form class="form-auth" id="loginForm">
+            <form class="form-auth" id="registroForm">
                 <div class="form-auth__group">
                     <input type="text" id="user" class="form-auth__input" required placeholder=" ">
-                    <label for="user" class="form-auth__label">ID de Usuario</label>
+                    <label for="user" class="form-auth__label">Nombre de Usuario</label>
+                </div>
+
+                <div class="form-auth__group">
+                    <input type="email" id="email" class="form-auth__input" required placeholder=" ">
+                    <label for="email" class="form-auth__label">Correo Electrónico</label>
                 </div>
 
                 <div class="form-auth__group">
                     <input type="password" id="pass" class="form-auth__input" required placeholder=" ">
                     <label for="pass" class="form-auth__label">Contraseña</label>
+                </div>
+
+                <div class="form-auth__group">
+                    <input type="password" id="confirmPass" class="form-auth__input" required placeholder=" ">
+                    <label for="confirmPass" class="form-auth__label">Confirmar Contraseña</label>
                 </div>
 
                 <div class="form-auth__captcha-container">
@@ -57,16 +68,15 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn--neon btn--glow btn--full" id="login">
-                    INICIAR SESIÓN
+                <button type="submit" class="btn btn--neon btn--glow btn--full" id="registrar">
+                    CREAR CUENTA
                 </button>
             </form>
 
             <footer class="auth-card__footer">
                 <p class="auth-card__text auth-card__text--center">
-                    ¿Nuevo en la plataforma? <br>
-                    <a href="creaCuenta.html" class="link-neon">Crea una cuenta</a>
-                    accesada.
+                    ¿Ya tienes una cuenta? <br>
+                    <a href="login.html" class="link-neon">Inicia sesión</a> aquí.
                 </p>
             </footer>
         </section>
