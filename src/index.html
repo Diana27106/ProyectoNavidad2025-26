@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLUX - Home</title>
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        emailjs.init("_yV_fbqExgeH0nDOc");
+    </script>
+    <div class="video-bg-wrapper">
+        <video autoplay muted loop playsinline class="video-bg-content">
+            <source src="./assets/bg.mp4" type="video/mp4">
+        </video>
+        <div class="video-bg-overlay"></div>
+    </div>
+    <!-- Floating Navigation -->
+    <header class="header">
+        <div class="header__container">
+            <a href="index.html" class="logo">
+                FLUX<span class="logo__dot">.</span>
+            </a>
+
+            <nav>
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link nav-link--active">Inicio</a></li>
+                    <li><a href="movies.html" class="nav-link">Películas</a></li>
+                    <li><a href="series.html" class="nav-link">Series</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__actions">
+                <a href="#mobile-menu" class="open-menu" id="open-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </a>
+                <div class="cart-icon pulse-neon" id="cart-toggle">
+                    <span class="cart-icon__badge" id="cart-badge">0</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cart-icon__svg">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                </div>
+                <div class="user-profile" id="user-profile-btn">
+                    <div class="user-profile__avatar pulse-neon">
+                        <span id="user-initial">U</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title" data-text="EL FUTURO ES">
+                EL FUTURO ES <br>
+                <span class="hero-subtitle">FLUJO</span>
+            </h1>
+
+            <p class="hero__description">
+                Experimenta el streaming del mañana, hoy. Películas, series y contenido exclusivo
+                con la estética más avanzada y el rendimiento más veloz del planeta.
+            </p>
+
+            <div class="cta-container">
+                <a href="movies.html" class="btn btn--neon btn--cta btn--glow">
+                    🎬 EXPLORAR CINE
+                </a>
+                <a href="series.html" class="btn btn--secondary btn--cta">
+                    📺 VER SERIES
+                </a>
+            </div>
+        </section>
+
+        <!-- Bento Gallery -->
+        <section class="bento-section" id="destacados">
+            <h2 class="bento-title">
+                DESTACADOS DEL <span class="highlight">MES</span>
+            </h2>
+
+            <div class="bento-grid">
+                <article class="bento-item bento-item--large">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=800&h=600&fit=crop"
+                        alt="Ciencia Ficción">
+                    <div class="bento-item__content">
+                        <h3 class="bento-item__title--cyan">🚀 CIENCIA FICCIÓN</h3>
+                        <p>Viaja a las profundidades del universo con nuestra selección premium de clásicos y estrenos.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="bento-item">
+                    <img src="https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=400&h=600&fit=crop"
+                        alt="Acción">
+                    <div class="bento-item__content">
+                        <h3 class="bento-item__title--cyan">💥 ACCIÓN</h3>
+                    </div>
+                </article>
+
+                <article class="bento-item bento-item--tall">
+                    <img src="https://i.pinimg.com/1200x/07/f7/47/07f74717d4f5296bcf45f7d4ff9cb96a.jpg"
+                        alt="Series Premium">
+                    <div class="bento-item__content">
+                        <h3 class="bento-item__title--purple">⭐ SERIES TOP</h3>
+                        <p>Las historias más impactantes y adictivas del momento.</p>
+                    </div>
+                </article>
+
+                <article class="bento-item">
+                    <img src="https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=400&h=600&fit=crop"
+                        alt="Drama">
+                    <div class="bento-item__content">
+                        <h3 class="bento-item__title--pink">🎭 DRAMA</h3>
+                    </div>
+                </article>
+
+                <article class="bento-item bento-item--wide">
+                    <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&h=400&fit=crop"
+                        alt="Clásicos">
+                    <div class="bento-item__content">
+                        <h3 class="bento-item__title--pink">🎬 CLÁSICOS IMPERECEDEROS</h3>
+                        <p>El cine que definió generaciones.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Feature Grid -->
+        <section class="feature-grid">
+            <div class="feature-card feature-card--cyan">
+                <div class="feature-card__icon">
+                    ♾️
+                </div>
+                <h3 class="auth-card__title">Catálogo Infinito</h3>
+                <p class="auth-card__text">
+                    Acceso total a la base de datos de TMDB con actualizaciones en tiempo real y contenido ilimitado.
+                </p>
+            </div>
+
+            <div class="feature-card feature-card--purple">
+                <div class="feature-card__icon">
+                    ⚡
+                </div>
+                <h3 class="auth-card__title">Ultra Velocidad</h3>
+                <p class="auth-card__text">
+                    Streaming de alta fidelidad optimizado para cualquier dispositivo con tecnología de última
+                    generación.
+                </p>
+            </div>
+
+            <div class="feature-card feature-card--pink">
+                <div class="feature-card__icon">
+                    🎯
+                </div>
+                <h3 class="auth-card__title">Sin Límites</h3>
+                <p class="auth-card__text">
+                    Gestiona tus favoritos, crea listas personalizadas y compra de forma segura y rápida.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <p class="footer-text">
+            © 2025 FLUX - STREAMING PLATFORM
+        </p>
+    </footer>
+
+    <!-- Cart Drawer -->
+    <div id="cart-overlay" class="cart-overlay"></div>
+    <aside id="cart-drawer" class="cart-drawer">
+        <div class="cart-drawer__header">
+            <h2 class="auth-card__title cart-header">TU CARRITO</h2>
+            <button id="cart-close" class="cart-drawer__close">&times;</button>
+        </div>
+        <div id="cart-container" class="cart-drawer__content"></div>
+        <div class="cart-drawer__footer cart-footer">
+            <button class="btn btn--neon">FINALIZAR COMPRA</button>
+        </div>
+    </aside>
+
+    <!-- Mobile Menu -->
+    <section class="mobile-menu" id="mobile-menu">
+        <a href="#" class="close-menu">
+            <i class="fa-solid fa-xmark"></i>
+        </a>
+        <div class="mobile-menu__content">
+            <a href="index.html" class="logo">FLUX<span class="logo__dot">.</span></a>
+            <ul class="mobile-nav-list">
+                <li><a href="index.html" class="mobile-nav-link nav-link--active">Inicio</a></li>
+                <li><a href="movies.html" class="mobile-nav-link">Películas</a></li>
+                <li><a href="series.html" class="mobile-nav-link">Series</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="js/animations.js" type="module"></script>
+    <script src="js/Carrito.mjs" type="module"></script>
+    <script src="js/main.js" type="module"></script>
+</body>
+
+</html>
