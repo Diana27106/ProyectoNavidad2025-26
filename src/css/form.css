@@ -1,0 +1,328 @@
+/* ==========================================================================
+   VARIABLES Y CONFIGURACIÓN 
+   ========================================================================== */
+:root {
+  /* Colors */
+  --color-bg: #050505;
+  --color-accent: #00f2ff;
+  /* Cyan neón */
+  --color-accent-glow: rgba(0, 242, 255, 0.5);
+  --color-text-main: #ffffff;
+  --color-text-muted: #a0a0a0;
+  --color-glass-bg: rgba(15, 15, 15, 0.7);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Spacing & Sizes */
+  --base-padding: 2rem;
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
+
+  /* Responsive Font Sizes */
+  --fs-h2: clamp(1.5rem, 5vw, 2rem);
+  --fs-body: 0.95rem;
+}
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   COMPONENTES DE FONDO (Video & Overlay)
+   ========================================================================== */
+.video-bg-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.video-bg-content {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 20%, var(--color-bg) 100%);
+  z-index: -1;
+}
+
+/* ==========================================================================
+   HEADER & LOGO
+   ========================================================================== */
+.header {
+  padding: 1.5rem;
+}
+
+.header__container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--color-text-main);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.logo__dot {
+  color: var(--color-accent);
+  text-shadow: 0 0 10px var(--color-accent);
+}
+
+/* ==========================================================================
+   LAYOUT (Auth Container)
+   ========================================================================== */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 100px);
+  padding: var(--base-padding);
+}
+
+/* ==========================================================================
+   GLASS CARD (BEM: .glass-card)
+   ========================================================================== */
+.glass-card {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--border-radius);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de borde brillante superior */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,
+      transparent,
+      var(--color-accent),
+      transparent);
+}
+
+/* ==========================================================================
+   AUTH CARD ELEMENTS
+   ========================================================================== */
+.auth-card__header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-card__title {
+  font-size: var(--fs-h2);
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.auth-card__text {
+  color: var(--color-text-muted);
+  font-size: var(--fs-body);
+}
+
+.auth-card__text--center {
+  text-align: center;
+}
+
+.auth-card__footer {
+  margin-top: 2rem;
+}
+
+/* ==========================================================================
+   FORM & INPUTS (BEM: .form-auth)
+   ========================================================================== */
+.form-auth__group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-auth__input {
+  width: 100%;
+  padding: 0.8rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-text-muted);
+  color: var(--color-text-main);
+  font-size: 1rem;
+  transition: border-color var(--transition-speed);
+}
+
+.form-auth__input:focus {
+  outline: none;
+  border-bottom-color: var(--color-accent);
+}
+
+.form-auth__label {
+  position: absolute;
+  top: 0.8rem;
+  left: 0;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  transition: all var(--transition-speed);
+}
+
+/* Animación del Label (Floating Label) */
+.form-auth__input:focus+.form-auth__label,
+.form-auth__input:not(:placeholder-shown)+.form-auth__label {
+  top: -12px;
+  font-size: 0.75rem;
+  color: var(--color-accent);
+}
+
+/* Captcha Container */
+.form-auth__captcha-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 2rem;
+}
+
+.captcha-box {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.captcha-box__img {
+  height: 40px;
+  flex-grow: 1;
+  filter: invert(1);
+  /* Ajustar según imagen */
+}
+
+/* ==========================================================================
+   BUTTONS & LINKS
+   ========================================================================== */
+.btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all var(--transition-speed);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn--neon {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.btn--neon:hover {
+  background: var(--color-accent);
+  color: #000;
+  box-shadow: 0 0 20px var(--color-accent-glow);
+}
+
+.btn--glow {
+  animation: neon-pulse 2s infinite ease-in-out;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+.btn--secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.btn--icon {
+  padding: 0.5rem;
+}
+
+.link-neon {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: bold;
+  transition: text-shadow var(--transition-speed);
+}
+
+.link-neon:hover {
+  text-shadow: 0 0 8px var(--color-accent);
+}
+
+/* ==========================================================================
+   ANIMATIONS & RESPONSIVE
+   ========================================================================== */
+@keyframes neon-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 5px var(--color-accent-glow);
+  }
+
+  50% {
+    box-shadow: 0 0 20px var(--color-accent-glow);
+  }
+}
+
+@media (max-width: 1024px) {
+  .glass-card {
+    max-width: 400px;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-container {
+    padding: 1rem;
+    align-items: flex-start;
+    padding-top: 4rem;
+  }
+
+  .glass-card {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .form-auth__captcha-container {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+}
