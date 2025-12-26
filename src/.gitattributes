@@ -1,0 +1,2 @@
+src/assets/bg.mp4 filter=lfs diff=lfs merge=lfs -text
+assets/bg.mp4 filter=lfs diff=lfs merge=lfs -text

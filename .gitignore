@@ -1,0 +1,10 @@
+# Si quieres ignorar todos los videos por si acaso
+*.mp4
+*.mov
+*.avi
+
+# Carpetas de dependencias y builds (recomendado)
+node_modules/
+dist/
+build/
+.env
