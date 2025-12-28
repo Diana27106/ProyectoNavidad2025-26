@@ -1,0 +1,110 @@
+name: Deploy Web App Securizada a EC2
+
+on:
+  workflow_dispatch: # Ejecución manual desde la pestaña Actions
+
+jobs:
+  # ---------------------------------------------------------
+  # 1. JOB: BUILD & DOCS
+  # ---------------------------------------------------------
+  build-and-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "latest"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate JSDoc
+        run: |
+          mkdir -p docs
+          npx jsdoc -c jsdoc.json || echo "JSDoc falló, revisa la config"
+          ls -l docs
+
+      - name: Build and Save Docker Image
+        run: |
+          # Construimos la imagen con un tag específico
+          docker build -t web-app-prod:latest .
+          # La guardamos en un archivo comprimido para transferirla
+          docker save web-app-prod:latest | gzip > web-app-prod.tar.gz
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-assets
+          path: |
+            web-app-prod.tar.gz
+            docker-compose.yml
+          retention-days: 1
+
+  # ---------------------------------------------------------
+  # 2. JOB: SETUP ENVIRONMENT (Asegura Docker en EC2)
+  # ---------------------------------------------------------
+  setup-ec2-environment:
+    needs: build-and-docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check and Install Docker/Compose on EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Instalar Docker si no existe
+            if ! [ -x "$(command -v docker)" ]; then
+              sudo apt-get update
+              sudo apt-get install -y docker.io
+              sudo systemctl start docker
+              sudo systemctl enable docker
+              sudo usermod -aG docker ${{ secrets.EC2_USER }}
+            fi
+            # Instalar Docker Compose si no existe
+            if ! [ -x "$(command -v docker-compose)" ]; then
+              sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              sudo chmod +x /usr/local/bin/docker-compose
+            fi
+
+  # ---------------------------------------------------------
+  # 3. JOB: DEPLOY (Transferencia y Ejecución)
+  # ---------------------------------------------------------
+  deploy:
+    needs: [build-and-docs, setup-ec2-environment]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-assets
+
+      - name: Copy Files to EC2 (SCP)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "web-app-prod.tar.gz,docker-compose.yml"
+          target: "~"
+
+      - name: Execute Deployment (SSH)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # 1. Cargar la nueva imagen
+            gunzip -c ~/web-app-prod.tar.gz | docker load
+            
+            # 2. Levantar el servicio (Docker Compose gestiona el stop/rm del anterior)
+            docker-compose -f ~/docker-compose.yml up -d
+            
+            # 3. Limpieza de archivos temporales e imágenes huérfanas
+            rm ~/web-app-prod.tar.gz
+            docker image prune -f
