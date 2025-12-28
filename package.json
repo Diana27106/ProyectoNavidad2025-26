@@ -1,0 +1,26 @@
+{
+  "name": "proyectonavidad2025-26",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "docs": "jsdoc -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Diana27106/ProyectoNavidad2025-26.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Diana27106/ProyectoNavidad2025-26/issues"
+  },
+  "homepage": "https://github.com/Diana27106/ProyectoNavidad2025-26#readme",
+  "devDependencies": {
+    "jsdoc": "^4.0.5"
+  }
+}
