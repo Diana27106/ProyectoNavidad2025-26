@@ -50,25 +50,27 @@ jobs:
     needs: build-and-docs
     runs-on: ubuntu-latest
     steps:
-      - name: Check and Install Docker/Compose on EC2
+      - name: Install Docker and Compose on Amazon Linux
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
+          username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Instalar Docker si no existe
-            if ! [ -x "$(command -v docker)" ]; then
-              sudo apt-get update
-              sudo apt-get install -y docker.io
-              sudo systemctl start docker
-              sudo systemctl enable docker
-              sudo usermod -aG docker ${{ secrets.EC2_USER }}
+            # Instalar Docker
+            if ! command -v docker &> /dev/null; then
+              sudo dnf update -y
+              sudo dnf install -y docker
+              sudo systemctl enable --now docker
+              sudo usermod -aG docker ec2-user
             fi
-            # Instalar Docker Compose si no existe
-            if ! [ -x "$(command -v docker-compose)" ]; then
+
+            # Instalar Docker Compose (v2)
+            if ! command -v docker-compose &> /dev/null; then
               sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
               sudo chmod +x /usr/local/bin/docker-compose
+              # Crear un enlace simbólico para que siempre sea accesible
+              sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose || true
             fi
 
   # ---------------------------------------------------------
@@ -101,10 +103,10 @@ jobs:
           script: |
             # 1. Cargar la nueva imagen
             gunzip -c ~/web-app-prod.tar.gz | docker load
-            
+
             # 2. Levantar el servicio (Docker Compose gestiona el stop/rm del anterior)
             docker-compose -f ~/docker-compose.yml up -d
-            
+
             # 3. Limpieza de archivos temporales e imágenes huérfanas
             rm ~/web-app-prod.tar.gz
             docker image prune -f
