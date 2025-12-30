@@ -28,12 +28,11 @@ const loadCaptcha = () => {
  * @param {Object} obUser Objeto usuario con { user, pass}
  */
 const valida = (obUser) => {
-    fetch("http://localhost:3000/users")
+    fetch("/api/users")
         .then(res => res.json())
         .then(data => {
             // Comprobamos que el usuario exista
             let user = data.find(usuario => usuario.username == obUser.user && usuario.password == obUser.pass)
-
             if (user) {
                 let usuario = {
                     id: user.id,
@@ -62,7 +61,7 @@ const valida = (obUser) => {
  */
 const registerUser = (userData) => {
     // Primero verificamos que el usuario no exista
-    fetch("http://localhost:3000/users")
+    fetch("/api/users")
         .then(res => res.json())
         .then(data => {
             const existingUser = data.find(u => u.username === userData.username || u.email === userData.email);
@@ -74,7 +73,7 @@ const registerUser = (userData) => {
             }
 
             // Si no existe, procedemos al registro
-            return fetch("http://localhost:3000/users", {
+            return fetch("/api/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
