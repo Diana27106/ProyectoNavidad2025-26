@@ -9,6 +9,8 @@ Puedes acceder a la versión en producción y a su documentación técnica a tra
 - **🌐 Aplicación en Vivo:** [https://flux.tkdsierranevada.com/](https://flux.tkdsierranevada.com/)
 - **📚 Documentación Técnica (JSDoc):** [https://flux.tkdsierranevada.com/docs](https://flux.tkdsierranevada.com/docs)
 
+[!IMPORTANT] Nota de disponibilidad: Debido a que el proyecto se encuentra alojado en una instancia AWS EC2 vinculada al entorno de prácticas, el acceso a los enlaces anteriores solo estará disponible mientras el laboratorio correspondiente permanezca activo.
+
 ---
 
 ## 🛠️ Tecnologías Utilizadas
