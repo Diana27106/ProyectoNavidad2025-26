@@ -8,14 +8,17 @@ services:
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
     restart: always
+    depends_on:
+      - json-api
 
   json-api:
     image: node:alpine
     container_name: json-container
     working_dir: /app
     volumes:
-      - ./src/data:/app/data
+      - ./src/data:/app/data # Mapeamos tu carpeta de datos local a la del contenedor
     ports:
       - "3000:3000"
-    command: sh -c "npm install -g json-server && json-server --watch data/db.json --host 0.0.0.0 --port 3000"
+    # Comando para instalar json-server y ejecutarlo al arrancar
+    command: sh -c "npm install -g json-server@0.17.4 && json-server --watch data/db.json --host 0.0.0.0 --port 3000"
     restart: always
