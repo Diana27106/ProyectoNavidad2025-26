@@ -337,10 +337,10 @@ const updateLoadMoreVisibility = () => {
  */
 const main = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) {
-        location.href = 'login.html';
-        return;
-    }
+    // if (!user) {
+    //     location.href = 'login.html';
+    //     return;
+    // }
 
     // Actualizar Inicial de Usuario
     const userInitial = document.getElementById("user-initial");
